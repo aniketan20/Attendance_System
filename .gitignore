@@ -1,0 +1,4 @@
+TrainingImage/*.jpg
+StudentDetails/StudentDetails.csv
+Attendance/*.csv
+Attendance/Manually Attendance/*.csv
