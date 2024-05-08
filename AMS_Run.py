@@ -210,7 +210,9 @@ def manually_fill():
 
             def attf():
                 import subprocess
-                subprocess.Popen(r'explorer /select,"D:\IP-Final\Attendance_System\Attendance\Manually_Attendance\-------Check atttendance-------"')
+
+                directory_path = r'D:\IP-Final\Attendance_System\Attendance\Manually_Attendance'
+                subprocess.Popen(r'explorer /select,"{}"'.format(directory_path))
 
             attf = tk.Button(MFW,  text="Check Sheets",command=attf,fg="black"  ,bg="lawn green"  ,width=12  ,height=1 ,activebackground = "Red" ,font=('times', 14, ' bold '))
             attf.place(x=730, y=410)
@@ -459,7 +461,9 @@ def subjectchoose():
 
     def Attf():
         import subprocess
-        subprocess.Popen(r'explorer /select,"D:\IP-Final\Attendance_System\Attendance\-------Check atttendance-------"')
+
+        directory_path = r'D:\IP-Final\Attendance_System\Attendance\Manually_Attendance'
+        subprocess.Popen(r'explorer /select,"{}"'.format(directory_path))
 
     attf = tk.Button(windo,  text="Check Sheets",command=Attf,fg="black"  ,bg="lawn green"  ,width=12  ,height=1 ,activebackground = "Red" ,font=('times', 14, ' bold '))
     attf.place(x=430, y=255)
