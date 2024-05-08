@@ -306,7 +306,7 @@ def run_bottleneck_on_image(sess, image_data, image_data_tensor,
                                   {image_data_tensor: image_data})
   # Then run it through the recognition network.
   bottleneck_values = sess.run(bottleneck_tensor,
-                               {resized_input_tensor: resized_input_values})
+                              {resized_input_tensor: resized_input_values})
   bottleneck_values = np.squeeze(bottleneck_values)
   return bottleneck_values
 
@@ -329,7 +329,7 @@ def maybe_download_and_extract(data_url):
 
     def _progress(count, block_size, total_size):
       sys.stdout.write('\r>> Downloading %s %.1f%%' %
-                       (filename,
+                      (filename,
                         float(count * block_size) / float(total_size) * 100.0))
       sys.stdout.flush()
 
@@ -355,9 +355,9 @@ bottleneck_path_2_bottleneck_values = {}
 
 
 def create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
-                           image_dir, category, sess, jpeg_data_tensor,
-                           decoded_image_tensor, resized_input_tensor,
-                           bottleneck_tensor):
+                          image_dir, category, sess, jpeg_data_tensor,
+                          decoded_image_tensor, resized_input_tensor,
+                          bottleneck_tensor):
   """Create a single bottleneck file."""
   tf.logging.info('Creating bottleneck at ' + bottleneck_path)
   image_path = get_image_path(image_lists, label_name, index,
@@ -371,16 +371,16 @@ def create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
         resized_input_tensor, bottleneck_tensor)
   except Exception as e:
     raise RuntimeError('Error during processing file %s (%s)' % (image_path,
-                                                                 str(e)))
+                                                                str(e)))
   bottleneck_string = ','.join(str(x) for x in bottleneck_values)
   with open(bottleneck_path, 'w') as bottleneck_file:
     bottleneck_file.write(bottleneck_string)
 
 
 def get_or_create_bottleneck(sess, image_lists, label_name, index, image_dir,
-                             category, bottleneck_dir, jpeg_data_tensor,
-                             decoded_image_tensor, resized_input_tensor,
-                             bottleneck_tensor, architecture):
+                            category, bottleneck_dir, jpeg_data_tensor,
+                            decoded_image_tensor, resized_input_tensor,
+                            bottleneck_tensor, architecture):
   """Retrieves or calculates bottleneck values for an image.
 
   If a cached version of the bottleneck data exists on-disk, return that,
@@ -414,9 +414,9 @@ def get_or_create_bottleneck(sess, image_lists, label_name, index, image_dir,
                                         bottleneck_dir, category, architecture)
   if not os.path.exists(bottleneck_path):
     create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
-                           image_dir, category, sess, jpeg_data_tensor,
-                           decoded_image_tensor, resized_input_tensor,
-                           bottleneck_tensor)
+                          image_dir, category, sess, jpeg_data_tensor,
+                          decoded_image_tensor, resized_input_tensor,
+                          bottleneck_tensor)
   with open(bottleneck_path, 'r') as bottleneck_file:
     bottleneck_string = bottleneck_file.read()
   did_hit_error = False
@@ -427,9 +427,9 @@ def get_or_create_bottleneck(sess, image_lists, label_name, index, image_dir,
     did_hit_error = True
   if did_hit_error:
     create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
-                           image_dir, category, sess, jpeg_data_tensor,
-                           decoded_image_tensor, resized_input_tensor,
-                           bottleneck_tensor)
+                          image_dir, category, sess, jpeg_data_tensor,
+                          decoded_image_tensor, resized_input_tensor,
+                          bottleneck_tensor)
     with open(bottleneck_path, 'r') as bottleneck_file:
       bottleneck_string = bottleneck_file.read()
     # Allow exceptions to propagate here, since they shouldn't happen after a
@@ -597,7 +597,7 @@ def get_random_distorted_bottlenecks(
     distorted_image_data = sess.run(distorted_image,
                                     {input_jpeg_tensor: jpeg_data})
     bottleneck_values = sess.run(bottleneck_tensor,
-                                 {resized_input_tensor: distorted_image_data})
+                                {resized_input_tensor: distorted_image_data})
     bottleneck_values = np.squeeze(bottleneck_values)
     ground_truth = np.zeros(class_count, dtype=np.float32)
     ground_truth[label_index] = 1.0
@@ -692,8 +692,8 @@ def add_input_distortions(flip_left_right, random_crop, random_scale,
   resize_scale = 1.0 + (random_scale / 100.0)
   margin_scale_value = tf.constant(margin_scale)
   resize_scale_value = tf.random_uniform(tensor_shape.scalar(),
-                                         minval=1.0,
-                                         maxval=resize_scale)
+                                        minval=1.0,
+                                        maxval=resize_scale)
   scale_value = tf.multiply(margin_scale_value, resize_scale_value)
   precrop_width = tf.multiply(scale_value, input_width)
   precrop_height = tf.multiply(scale_value, input_height)
@@ -703,7 +703,7 @@ def add_input_distortions(flip_left_right, random_crop, random_scale,
                                               precrop_shape_as_int)
   precropped_image_3d = tf.squeeze(precropped_image, squeeze_dims=[0])
   cropped_image = tf.random_crop(precropped_image_3d,
-                                 [input_height, input_width, input_depth])
+                                [input_height, input_width, input_depth])
   if flip_left_right:
     flipped_image = tf.image.random_flip_left_right(cropped_image)
   else:
@@ -711,8 +711,8 @@ def add_input_distortions(flip_left_right, random_crop, random_scale,
   brightness_min = 1.0 - (random_brightness / 100.0)
   brightness_max = 1.0 + (random_brightness / 100.0)
   brightness_value = tf.random_uniform(tensor_shape.scalar(),
-                                       minval=brightness_min,
-                                       maxval=brightness_max)
+                                      minval=brightness_min,
+                                      maxval=brightness_max)
   brightened_image = tf.multiply(flipped_image, brightness_value)
   offset_image = tf.subtract(brightened_image, input_mean)
   mul_image = tf.multiply(offset_image, 1.0 / input_std)
@@ -734,7 +734,7 @@ def variable_summaries(var):
 
 
 def add_final_training_ops(class_count, final_tensor_name, bottleneck_tensor,
-                           bottleneck_tensor_size):
+                          bottleneck_tensor_size):
   """Adds a new softmax and fully-connected layer for training.
 
   We need to retrain the top layer to identify our new classes, so this function
