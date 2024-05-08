@@ -86,7 +86,7 @@ def manually_fill():
             sb.destroy()
             MFW = tk.Tk()
             MFW.iconbitmap('AMS.ico')
-            MFW.title("Manually attendance of "+ str(subb))
+            MFW.title("Manually_Attendance of "+ str(subb))
             MFW.geometry('880x470')
             MFW.configure(background='snow')
 
@@ -156,7 +156,7 @@ def manually_fill():
             def create_csv():
                 import csv
                 cursor.execute("select * from " + DB_table_name + ";")
-                csv_name='D:/IP-Final/Attendance_System/Attendance/Manually Attendance/'+DB_table_name+'.csv'
+                csv_name='D:/IP-Final/Attendance_System/Attendance/Manually_Attendance/'+DB_table_name+'.csv'
                 with open(csv_name, "w") as csv_file:
                     csv_writer = csv.writer(csv_file)
                     csv_writer.writerow([i[0] for i in cursor.description])  # write headers
@@ -210,7 +210,7 @@ def manually_fill():
 
             def attf():
                 import subprocess
-                subprocess.Popen(r'explorer /select,"D:\IP-Final\Attendance_System\Attendance\Manually Attendance\-------Check atttendance-------"')
+                subprocess.Popen(r'explorer /select,"D:\IP-Final\Attendance_System\Attendance\Manually_Attendance\-------Check atttendance-------"')
 
             attf = tk.Button(MFW,  text="Check Sheets",command=attf,fg="black"  ,bg="lawn green"  ,width=12  ,height=1 ,activebackground = "Red" ,font=('times', 14, ' bold '))
             attf.place(x=730, y=410)
