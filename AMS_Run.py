@@ -149,6 +149,8 @@ def manually_fill():
 
             def create_csv():
                 import csv
+
+                    
                 cursor.execute("select * from " + DB_table_name + ";")
                 csv_name='D:/IP-Final/Attendance_System/Attendance/Manually_Attendance/'+DB_table_name+'.csv'
                 with open(csv_name, "w") as csv_file:
@@ -368,7 +370,8 @@ def subjectchoose():
         date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
         timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
         Hour, Minute, Second = timeStamp.split(":")
-        fileName = f"Attendance/{Subject}_{date}_{Hour}-{Minute}-{Second}.csv"
+        # fileName = f"Attendance/{Subject}_{date}_{Hour}-{Minute}-{Second}.csv"
+        fileName = f"Attendance/{Subject}_{date}.csv"
         attendance.to_csv(fileName, index=False)
 
         date_for_DB = datetime.datetime.fromtimestamp(ts).strftime('%Y_%m_%d')
