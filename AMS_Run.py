@@ -288,7 +288,7 @@ def take_img():
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
                 
-                elif sampleNum > 70:
+                elif sampleNum > 40:
                     break
             cam.release()
             cv2.destroyAllWindows()
@@ -408,7 +408,7 @@ def subjectchoose():
             connection.close()
 
         Notifica.configure(text="Attendance filled Successfully", bg="Green", fg="white", width=33, font=('times', 15, 'bold'))
-        Notifica.place(x=20, y=250)
+        Notifica.place(x=50, y=250)
 
         # Show Attendance
         root = tk.Tk()
